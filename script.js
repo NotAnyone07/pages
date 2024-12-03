@@ -25,6 +25,12 @@ title.addEventListener('mouseenter', () => {
         ease: Elastic.easeOut.config(1, 0.3)
     })
 })
+title.addEventListener('mouseenter', () => {
+    gsap.to(cursor, 1, {
+        scale: 0,
+        opacity: 0,
+    })
+})
 
 title.addEventListener('mousemove', () => {
     gsap.to(hand, 1, {
@@ -40,6 +46,13 @@ title.addEventListener('mouseleave', () => {
         top: '10',
         left: '40',
         rotate: 45,
+    })
+})
+
+title.addEventListener('mouseleave', () => {
+    gsap.to(cursor, {
+        scale: 1,
+        opacity: 1,
     })
 })
 

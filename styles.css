@@ -39,6 +39,7 @@ html, body{
     color: #f1f1f1e4;
 }
 
+
 .cursor, .hand {
     position: fixed;
     left: 0;
@@ -57,7 +58,7 @@ html, body{
 }
 
 .hand {
-    background: rgb(155,0,255);
+    background: #1a1a1a;
     top: 50%;
     width: 60px;
     height: 60px;
@@ -71,6 +72,7 @@ html, body{
         width: 30px;
     }
 }
+
 
 a, p {
     text-decoration: none;
@@ -119,7 +121,10 @@ nav a#logo {
     cursor: pointer;
     will-change: transform, opacity, clip-path;
     z-index: 2;
+    
 }
+
+
 
 .slide-img {
     position: absolute;
@@ -133,6 +138,7 @@ nav a#logo {
     opacity: 0.75;
     will-change: transform;
 }
+
 
 .slider-title {
     position: absolute;
