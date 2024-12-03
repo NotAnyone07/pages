@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(CustomEase);
     CustomEase.create(
         "hop",
-        "M0, 8 C0.488,0.02 0.467,0.286 0.5,0.5 0.532,0.712 0.58,1 1,1"
+        "M0,0 C0.488,0.02 0.467,0.286 0.5,0.5 0.532,0.712 0.58,1 1,1"
     );
 
     const slider = document.querySelector(".slider");
@@ -17,18 +17,18 @@ document.addEventListener("DOMContentLoaded", () => {
     let isAnimating = false;
 
     const sliderContent = [
-        {name: "Resume Purrfect", img: "/assets/New-logo-official-back-no-bg.png"},
-        {name: "Obys Agency", img: "#"},
-        {name: "Serene Space", img: "#"},
-        {name: "Gentle Horizon", img: "#"},
-        {name: "Quiet Flow", img: "#"},
-        {name: "Meow Meow", img: "#"},
-        {name: "Soft Whispher", img: "#"},
+        {name: "Resume Purrfect", img: "./assets/img1-1.jpg"},
+        {name: "Obys Agency", img: "./assets/img1-2.jpg"},
+        {name: "Serene Space", img: "./assets/img2-1.jpg"},
+        {name: "Gentle Horizon", img: "./assets/img2-2.jpg"},
+        {name: "Quiet Flow", img: "./assets/img3-1.jpg"},
+        {name: "Meow Meow", img: "./assets/img3-2.jpg"},
+        {name: "Soft Whispher", img: "./assets/img4-1.jpg"},
     ];
     //stopped at 8:26
 
     const clipPath = {
-        closed: "polygon(25% 30%, 75% 70%, 25% 70%)",
+        closed: "polygon(25% 30%, 75% 30%, 75% 70%, 25% 70%)",
         open: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
     };
 
@@ -45,12 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createAndAnimateTitle(content, direction){
         const newTitle = document.createElement("h1");
-        newTitle.innerText = content.name; //issue here
+        newTitle.innerText = content.name;//issue here
         sliderTitle.appendChild(newTitle);
         splitTextIntoSpans(newTitle);
 
 
-        const yOffset = direction === "next" ? 60: -60;
+        const yOffset = direction === "next" ? 60 : -60;
         gsap.set(newTitle.querySelectorAll("span"), {y: yOffset});
         gsap.to(newTitle.querySelectorAll("span"), {
             y:0,
@@ -76,9 +76,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function createSlide(content, className) {
         const slide = document.createElement("div");
         slide.className = `slide-container ${className}`;
-        slide.innerHTML = `<div class = "slide-img">img src="${content.img}" alt="${content.name}"></div>`;
+        slide.innerHTML = `
+            <div class="slide-img">
+                <img src="${content.img}" alt="${content.name}">
+            </div>`;
         return slide;
-    }
+    }    
 
 
     function getSlideIndex(increment) {
@@ -158,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const newActiveIndex = getSlideIndex(direction === "next" ? 1: -1);
-        createAndAnimateTitle(slidePositions[newActiveIndex - 1], direction);
+        createAndAnimateTitle(sliderContent[newActiveIndex - 1], direction); //original code had slidepositions instead of slidercontent. But it doesnt work when doing that
         updatePreviewImage(sliderContent[newActiveIndex - 1]);
 
         setTimeout(() => updateCounterAndHighlight(newActiveIndex), 1000);
@@ -179,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clickedSlide.classList.contains("next") ? "next" : "prev"
             );
         }
-    })
+    });
 
     Object.entries(slidePositions).forEach(([key, value]) => {
         gsap.set(`.slide-container.${key}`,{
@@ -198,11 +201,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const initialTitle = sliderTitle.querySelector("h1");
     splitTextIntoSpans(initialTitle);
     gsap.fromTo(
-        initialTitle.querySelectorAll("span"),
-        {
+        initialTitle.querySelectorAll("span"),{
             y:60,
-        },
-        {
+        },{
             y: 0,
             duration: 1,
             stagger: 0.02,
