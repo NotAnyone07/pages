@@ -1,3 +1,53 @@
+
+gsap.set('.cursor',{xPercent:-50, yPercent: -50})
+
+let cursor = document.querySelector('.cursor')
+let hand = document.querySelector('.hand')
+let title = document.querySelector('.slider-title')
+
+let mouseX;
+let mouseY;
+
+window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    gsap.to(cursor, 0.5, {x: mouseX, y:mouseY})
+})
+
+title.addEventListener('mouseenter', () => {
+    gsap.to(hand, 1, {
+        scale: 1,
+        opacity: 1,
+        top: '-25px',
+        left: '-25px',
+        rotate: 0,
+        ease: Elastic.easeOut.config(1, 0.3)
+    })
+})
+
+title.addEventListener('mousemove', () => {
+    gsap.to(hand, 1, {
+        x: mouseX,
+        y: mouseY
+    })
+})
+
+title.addEventListener('mouseleave', () => {
+    gsap.to(hand, 0.2, {
+        scale: 0,
+        opacity: 0,
+        top: '10',
+        left: '40',
+        rotate: 45,
+    })
+})
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(CustomEase);
     CustomEase.create(
@@ -17,14 +67,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let isAnimating = false;
 
     const sliderContent = [
-        {name: "Resume Purrfect", img: "./assets/img1-1.jpg"},
-        {name: "Obys Agency", img: "./assets/img1-2.jpg"},
-        {name: "Serene Space", img: "./assets/img2-1.jpg"},
-        {name: "Gentle Horizon", img: "./assets/img2-2.jpg"},
-        {name: "Quiet Flow", img: "./assets/img3-1.jpg"},
-        {name: "Meow Meow", img: "./assets/img3-2.jpg"},
-        {name: "Soft Whispher", img: "./assets/img4-1.jpg"},
+        {name: "Resume Purrfect", img: "./assets/img1-1.jpg", link: "https://resume-purrfect-hackhathon-nabirah-siddiqui.vercel.app"},
+        {name: "Obys Agency", img: "./assets/img1-2.jpg", link: "https://resume-purrfect-hackhathon-nabirah-siddiqui.vercel.app"},
+        {name: "Serene Space", img: "./assets/img2-1.jpg", link: "https://example.com/serene-space"},
+        {name: "Gentle Horizon", img: "./assets/img2-2.jpg", link: "https://example.com/gentle-horizon"},
+        {name: "Quiet Flow", img: "./assets/img3-1.jpg", link: "https://example.com/quiet-flow"},
+        {name: "Meow Meow", img: "./assets/img3-2.jpg", link: "https://example.com/meow-meow"},
+        {name: "Soft Whisper", img: "./assets/img4-1.jpg", link: "https://example.com/soft-whisper"},
     ];
+    
+    
     //stopped at 8:26
 
     const clipPath = {
@@ -49,6 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
         sliderTitle.appendChild(newTitle);
         splitTextIntoSpans(newTitle);
 
+        newTitle.addEventListener("click", () => {
+            window.open(content.link, "_blank");
+        });
 
         const yOffset = direction === "next" ? 60 : -60;
         gsap.set(newTitle.querySelectorAll("span"), {y: yOffset});
